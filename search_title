@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_LENGTH 100
+struct music
+{
+    char *title;
+    char *artist;
+    int date[3];  // 年、月、日
+    float length; // minutes
+    struct music *next;
+};
+struct music *search_title(struct music *, const char *);
+int main()
+{
+    struct music *head = NULL;
+    struct music *second = NULL;
+    struct music *third = NULL;
+
+    head = (struct music *)malloc(sizeof(struct music));
+    second = (struct music *)malloc(sizeof(struct music));
+    third = (struct music *)malloc(sizeof(struct music));
+    head->title = malloc(sizeof(char) * MAX_LENGTH);
+    second->title = malloc(sizeof(char) * MAX_LENGTH);
+    third->title = malloc(sizeof(char) * MAX_LENGTH);
+    strcpy(head->title, "Song 1");
+    strcpy(second->title, "Song 2");
+    strcpy(third->title, "Song 3");
+
+    head->next = second;
+    second->next = third;
+    third->next = NULL;
+
+    // 搜尋歌曲名稱為 "Song 2" 的節點
+    const char *target_title = "Song 2";
+    struct music *found_node = search_title(head, target_title);
+
+    // 可以進一步使用 found_node 進行其他操作
+
+    // 釋放動態分配的記憶體
+    free(head->title);
+    free(second->title);
+    free(third->title);
+    free(head);
+    free(second);
+    free(third);
+
+    getchar();
+
+    return 0;
+}
+
+struct music *search_title(struct music *head, const char *target_title)
+{
+    struct music *current = head;
+    while (current != NULL)
+    {
+        if (strcmp(current->title, target_title) == 0)
+        {
+            printf("title: %s\n", current->title);
+            printf("node address: %p\n", current);
+
+            return current;
+        }
+        current = current->next;
+    }
+    printf("no title found : %s\n", target_title);
+    return NULL;
+}
