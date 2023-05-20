@@ -1,0 +1,24 @@
+struct music *search_artist(struct music *head, const char *target_artist)
+{
+    struct music *current = head;
+    // create the new linked list to store this artist song
+    struct music *new_list = malloc(sizeof(struct music));
+    new_list->next = NULL;
+
+    printf("%s:\n",target_artist);
+    while (current != NULL)
+    {
+        if (strcmp(current->artist, target_artist) == 0)
+        {
+
+            struct music *new_song = malloc(sizeof(struct music));
+            new_song->title = current->title;
+            new_song->artist = current->artist;
+            new_song->next = new_list->next;
+            new_list->next = new_song;
+            printf("%s\n", current->title);
+        }
+        current = current->next;
+    }
+    return new_list;
+}
