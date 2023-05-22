@@ -98,4 +98,3 @@ void quick_sort(int mode,struct music* first, struct music* last)
         quick_sort(mode,first, pivot);
     }
 }
-
