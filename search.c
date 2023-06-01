@@ -67,7 +67,7 @@ void printList(struct music *head)
     printf("\n");
 }
 //這個部分再看看其他組員寫的function在稍微做修改
-struct music *binary_search(struct music *head, float target, float arr[], int nums)
+int binary_search(struct music *head, float target, float arr[], int nums)
 {
     int left, right;
     left = 0;
