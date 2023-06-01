@@ -1,17 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "cJSON.h"
 #include "cJSON.c"
-struct music
-{
-    char *title;
-    char *artist;
-    int *date;    // year, month, day
-    float length; // minutes
-    struct music *next;
-};
+#include "music.h"
 
+/* 
 int main()
 {
     int input;
@@ -85,3 +76,4 @@ int main()
     }
     return 0;
 }
+ */
