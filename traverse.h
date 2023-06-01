@@ -1,4 +1,6 @@
 #ifndef TRANVERSE_H
 #define TRANVERSE_H
-void traverse(struct music *head);
+
+void print_linkedList(struct music *head);
+
 #endif

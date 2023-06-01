@@ -100,20 +100,6 @@ void linkedList_append(struct music **head, char *new_title, char *new_artist, i
     return;
 }
 
-// ouput整個音樂清單的音樂資訊
-void print_linkedList(struct music *music)
-{
-    while (music != NULL)
-    {
-        printf("歌曲: %s\n", music->title);
-        printf("歌手: %s\n", music->artist);
-        printf("發行日期: %04d-%02d-%02d\n", music->date[0], music->date[1], music->date[2]); // 寬度2，用0補
-        printf("歌曲長度: %f\n", music->length);
-        printf("------------------------\n");
-        music = music->next;
-    }
-}
-
 // free the linked list
 void free_linkedList(struct music *head)
 {

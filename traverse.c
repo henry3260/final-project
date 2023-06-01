@@ -1,27 +1,16 @@
 #include "music.h"
 #include "traverse.h"
 
-void traverse(struct music *head)
+// output整個音樂清單的音樂資訊
+void print_linkedList(struct music *music)
 {
-    struct music *temp;
-    temp = head;
-    if (head == NULL)
+    while (music != NULL)
     {
-        printf("The list is empty\n");
-    }
-    else
-    {
-        while (temp != NULL)
-        {
-            printf("%s\n", temp->title);
-            printf("%s\n", temp->artist);
-            for (int i = 0; i < 3; i++)
-            {
-                printf("%d ", temp->date[i]);
-            }
-            printf("\n");
-            printf("%.2f\n", temp->length);
-            temp = temp->next;
-        }
+        printf("歌曲: %s\n", music->title);
+        printf("歌手: %s\n", music->artist);
+        printf("發行日期: %04d-%02d-%02d\n", music->date[0], music->date[1], music->date[2]); // 寬度2，用0補
+        printf("歌曲長度: %f分\n", music->length);
+        printf("------------------------\n");
+        music = music->next;
     }
 }
