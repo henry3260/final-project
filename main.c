@@ -1,10 +1,11 @@
 #include "music.h"
 
-#include "insert.h"
+#include "add.h"
 #include "queue.h"
 #include "search.h"
 #include "sort.h"
 #include "traverse.h"
+#include "delete.h"
 
 int main()
 {
