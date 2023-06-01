@@ -1,8 +1,33 @@
 #include "music.h"
-#include "insert.h"
+#include "add.h"
 
+// 檢查歌曲是否已存在於音樂庫
+int songExists(struct music *head, char *title)
+{
+    struct music *current = head;
+
+    while (current != NULL) 
+    {
+        if (strcmp(current->title, title) == 0) 
+        {
+            return 1; // 歌曲存在
+        }
+        current = current->next;
+    }
+
+    return 0; // 歌曲不存在
+}
+
+// 將新歌曲加入至音樂清單最前面
 void linkedList_push(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length)
-{ // 加到最前
+{ 
+
+    if (songExists(*head, new_title))
+    {
+        printf("%s已經存在於音樂庫內\n", new_title);
+        return;
+    }
+
     struct music *new_music = (struct music *)malloc(sizeof(struct music));
 
     new_music->title = strdup(new_title);
@@ -15,11 +40,19 @@ void linkedList_push(struct music **head, char *new_title, char *new_artist, int
     (*head) = new_music;
 }
 
+// 在指定歌曲後插入新歌曲
 void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new_artist, int new_date[3], float new_length)
-{ // 插入在指定歌曲後
+{
+
     if (prev_music == NULL)
     {
-        printf("必須有指定歌曲");
+        printf("您沒有指定歌曲.\n");
+        return;
+    }
+
+    if (songExists(prev_music->next, new_title))
+    {
+        printf("%s已經存在於音樂庫內\n", new_title);
         return;
     }
 
@@ -35,8 +68,15 @@ void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new
     prev_music->next = new_music;
 }
 
+// 將新歌曲加入至音樂清單最後面
 void linkedList_append(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length)
-{ // 加到最尾
+{ 
+    if (songExists(*head, new_title))
+    {
+        printf("%s已經存在於音樂庫內\n", new_title);
+        return;
+    }
+
     struct music *new_music = (struct music *)malloc(sizeof(struct music));
     struct music *last = *head;
 
@@ -60,19 +100,21 @@ void linkedList_append(struct music **head, char *new_title, char *new_artist, i
     return;
 }
 
+// ouput整個音樂清單的音樂資訊
 void print_linkedList(struct music *music)
 {
     while (music != NULL)
     {
-        printf("Title: %s\n", music->title);
-        printf("Artist: %s\n", music->artist);
-        printf("Date: %04d-%02d-%02d\n", music->date[0], music->date[1], music->date[2]); // 寬度2，用0補
-        printf("Length: %f\n", music->length);
+        printf("歌曲: %s\n", music->title);
+        printf("歌手: %s\n", music->artist);
+        printf("發行日期: %04d-%02d-%02d\n", music->date[0], music->date[1], music->date[2]); // 寬度2，用0補
+        printf("歌曲長度: %f\n", music->length);
         printf("------------------------\n");
         music = music->next;
     }
 }
 
+// free the linked list
 void free_linkedList(struct music *head)
 {
     struct music *temp;
