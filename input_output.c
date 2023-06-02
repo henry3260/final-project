@@ -1,97 +1,84 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <wchar.h>
-#include <locale.h>
-struct music
+#include "music.h"
+#include "add.h"
+#include "input_output.h"
+
+struct music *read_music_collection(const char *filename)
 {
-    wchar_t title[1000];
-    wchar_t artist[1000];
-    int date[3];  // year, month, day
-    float length; // minutes
-    char address[1000];
-    struct music *next;
-};
-struct music music[40];
-int main()
-{
-    FILE *file = fopen("456187811307680461_中文歌曲30首.txt", "r");
+    setlocale(LC_ALL, "zh_CN.UTF-8"); // Set locale to support Chinese characters
+    FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
         printf("Error opening file.\n");
-        return 1;
+        return NULL;
     }
     else
     {
-        printf("file open success.\n");
+        printf("File opened successfully.\n\n");
     }
 
+    struct music *head = NULL;
     int read = 0;
     wchar_t line[1000];
     wchar_t *pwc;
     wchar_t *pt;
-    while (!feof(file))
+    while (fgetws(line, sizeof(line) / sizeof(line[0]), file) != NULL)
     {
-        if (fgetws(line, sizeof(line) / sizeof(line[0]), file) != NULL)
+        int idx = 0;
+        pwc = wcstok(line, L",", &pt);
+        wchar_t *artist = NULL;
+        wchar_t *title = NULL;
+        int date[3] = {0};
+        float length = 0;
+        wchar_t *link = NULL;
+
+        while (pwc != NULL)
         {
-            // wprintf(L"%ls", line);
-            // printf("---\n");
-            int idx = 0;
-            pwc = wcstok(line, L",", &pt);
-            while (pwc != NULL)
+            switch (idx)
             {
                 //wprintf(L"%ls\n", pwc);
-                if(idx == 0)
-                {
-                    wcscpy(music[read].artist, pwc);
+                case 0:
+                    artist = wcsdup(pwc);
                     //wprintf(L"%ls\n" , music[read].artist);
-                }
-                else if(idx == 1)
-                {
-                    wcscpy(music[read].title, pwc);
+                    break;
+                case 1:
+                    title = wcsdup(pwc);
                     //wprintf(L"%ls\n" , music[read].title);
-                }
-                else if(idx == 2)
-                {
-                    int year;
-                    year = wcstol(pwc , NULL , 10);
-                    music[read].date[0] = year;
+                    break;
+                case 2:
+                    date[0] = wcstol(pwc, NULL, 10);
                     //wprintf(L"%d\n" , music[read].date[0]);
-                }
-                else if(idx == 3)
-                {
-                    int month;
-                    month = wcstol(pwc , NULL , 10);
-                    music[read].date[1] = month;
+                    break;
+                case 3:
+                    date[1] = wcstol(pwc, NULL, 10);
                     //wprintf(L"%d\n" , music[read].date[1]);
-                }
-                else if(idx == 4)
-                {
-                    int day;
-                    day = wcstol(pwc , NULL , 10);
-                    music[read].date[2] = day;
+                    break;
+                case 4:
+                    date[2] = wcstol(pwc, NULL, 10);
                     //wprintf(L"%d\n" , music[read].date[2]);
-                }
-                else if(idx == 5)
-                {
-                    float time;
-                    time = wcstof(pwc , NULL);
-                    music[read].length = time;
+                    break;
+                case 5:
+                    length = wcstof(pwc, NULL);
                     //wprintf(L"%.2f\n" , music[read].length);
-                }
-                else if(idx == 6)
-                {
-                    setlocale(LC_ALL , "");
-                    wcstombs(music[read].address , pwc , sizeof(music[read].address));
+                    break;
+                case 6:
+                    link = wcsdup(pwc);
                     //printf("%s\n" , music[read].address);
-                }
-                pwc = wcstok(NULL, L",", &pt);
-                idx++;
+                    break;
             }
+            pwc = wcstok(NULL, L",", &pt);
+            idx++;
         }
-        read++;
-    }
-    fclose(file);
 
-    return 0;
+        if (artist != NULL && title != NULL && link != NULL)
+        {
+            linkedList_append(&head, title, artist, date, length, link);
+        }
+
+        free(artist);
+        free(title);
+        free(link);
+    }
+
+    fclose(file);
+    return head;
 }
