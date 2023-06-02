@@ -2,105 +2,103 @@
 #include "add.h" 
 
 // 檢查歌曲是否已存在於音樂庫
-int songExists(struct music *head, char *title)
+int songExists(struct music *head, wchar_t *title, wchar_t *artist)
 {
     struct music *current = head;
 
-    while (current != NULL) 
+    while (current != NULL)
     {
-        if (strcmp(current->title, title) == 0) 
+        if (wcscmp(current->title, title) == 0 && wcscmp(current->artist, artist) == 0)
         {
-            return 1; // 歌曲存在
+            return 1; // Song exists
         }
         current = current->next;
     }
 
-    return 0; // 歌曲不存在
+    return 0; // Song does not exist
 }
 
 // 將新歌曲加入至音樂清單最前面
-void linkedList_push(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
-{ 
-
-    if (songExists(*head, new_title))
+void linkedList_push(struct music **head, wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length, wchar_t *new_link)
+{
+    if (songExists(*head, new_title, new_artist))
     {
-        printf("%s已經存在於音樂庫內\n", new_title);
+        wprintf(L"%ls的%ls已經存在於音樂庫內\n", new_artist, new_title);
         return;
     }
 
     struct music *new_music = (struct music *)malloc(sizeof(struct music));
 
-    new_music->title = strdup(new_title);
-    new_music->artist = strdup(new_artist);
+    new_music->title = wcsdup(new_title);
+    new_music->artist = wcsdup(new_artist);
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
-    new_music->link = strdup(new_link);
+    new_music->link = wcsdup(new_link);
 
     new_music->next = (*head);
     (*head) = new_music;
 }
 
 // 在指定歌曲後插入新歌曲
-void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
+void linkedList_insertAfter(struct music *prev_music, wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length, wchar_t *new_link)
 {
-
     if (prev_music == NULL)
     {
-        printf("您沒有指定歌曲.\n");
+        wprintf(L"您沒有指定歌曲.\n");
         return;
     }
 
-    if (songExists(prev_music->next, new_title))
+    if (songExists(prev_music, new_title, new_artist))
     {
-        printf("%s已經存在於音樂庫內\n", new_title);
+        wprintf(L"%ls的%ls已經存在於音樂庫內\n", new_artist, new_title);
         return;
     }
 
     struct music *new_music = (struct music *)malloc(sizeof(struct music));
 
-    new_music->title = strdup(new_title);
-    new_music->artist = strdup(new_artist);
+    new_music->title = wcsdup(new_title);
+    new_music->artist = wcsdup(new_artist);
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
-    new_music->link = strdup(new_link);
+    new_music->link = wcsdup(new_link);
 
     new_music->next = prev_music->next;
     prev_music->next = new_music;
 }
 
 // 將新歌曲加入至音樂清單最後面
-void linkedList_append(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
-{ 
-    if (songExists(*head, new_title))
+void linkedList_append(struct music **head, wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length, wchar_t *new_link)
+{
+    if (songExists(*head, new_title, new_artist))
     {
-        printf("%s已經存在於音樂庫內\n", new_title);
+        wprintf(L"%ls的%ls已經存在於音樂庫內\n", new_artist, new_title);
         return;
     }
 
     struct music *new_music = (struct music *)malloc(sizeof(struct music));
-    struct music *last = *head;
 
-    new_music->title = strdup(new_title);
-    new_music->artist = strdup(new_artist);
+    new_music->title = wcsdup(new_title);
+    new_music->artist = wcsdup(new_artist);
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
-    new_music->link = strdup(new_link);
+    new_music->link = wcsdup(new_link);
 
     new_music->next = NULL;
+
     if (*head == NULL)
     {
         *head = new_music;
         return;
     }
 
+    struct music *last = *head;
     while (last->next != NULL)
         last = last->next;
 
     last->next = new_music;
-    return;
 }
 
 // free the linked list

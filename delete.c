@@ -1,24 +1,25 @@
 #include "music.h"
 #include "delete.h"
 
-void linkedList_delete(struct music **head, char *title)
+void linkedList_delete(struct music **head, wchar_t *title, wchar_t *artist)
 {
     struct music *current = *head;
     struct music *prev = NULL;
 
     // 檢查是否為第一首歌曲
-    if (current != NULL && strcmp(current->title, title) == 0)
+    if (current != NULL && wcscmp(current->title, title) == 0 && wcscmp(current->artist, artist) == 0)
     {
         *head = current->next;
         free(current->title);
         free(current->artist);
+        free(current->link);
         free(current);
-        printf("已成功刪除%s\n", title);
+        wprintf(L"已成功刪除%s的%s\n", artist, title);
         return;
     }
 
     // 尋找要刪除的歌曲
-    while (current != NULL && strcmp(current->title, title) != 0)
+    while (current != NULL && (wcscmp(current->title, title) != 0 || wcscmp(current->artist, artist) != 0))
     {
         prev = current;
         current = current->next;
@@ -27,7 +28,7 @@ void linkedList_delete(struct music **head, char *title)
     // 若歌曲不存在，列印錯誤訊息
     if (current == NULL)
     {
-        printf("%s不存在於資料庫中\n", title);
+        wprintf(L"%s的%s不存在於資料庫中\n", artist, title);
         return;
     }
 
@@ -35,9 +36,11 @@ void linkedList_delete(struct music **head, char *title)
     prev->next = current->next;
     free(current->title);
     free(current->artist);
+    free(current->link);
     free(current);
-    printf("已成功刪除%s\n", title);
+    wprintf(L"已成功刪除%s的%s\n", artist, title);
 }
+
 /* 
 int main()
 {

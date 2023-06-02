@@ -1,4 +1,5 @@
 #include "music.h"
+#include "traverse.h"
 #include "queue.h"
 
 struct Queue
@@ -6,69 +7,58 @@ struct Queue
 	struct music *front, *rear;
 };
 
-struct music *newNode(char *new_title, char *new_artist, int new_date[3], float new_length)
+struct music *newNode(wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length)
 {
-	struct music *new_music = (struct music *)malloc(sizeof(struct music));
+    struct music *new_music = (struct music *)malloc(sizeof(struct music));
 
-	new_music->title = strdup(new_title);
-	new_music->artist = strdup(new_artist);
-	for (int i = 0; i < 3; i++)
-		new_music->date[i] = new_date[i];
-	new_music->length = new_length;
+    new_music->title = wcsdup(new_title);
+    new_music->artist = wcsdup(new_artist);
+    for (int i = 0; i < 3; i++)
+        new_music->date[i] = new_date[i];
+    new_music->length = new_length;
 
-	new_music->next = NULL;
-	return new_music;
+    new_music->next = NULL;
+    return new_music;
 }
 
 struct Queue *createQueue()
 {
-	struct Queue *q = (struct Queue *)malloc(sizeof(struct Queue));
-	q->front = q->rear = NULL;
-	return q;
+    struct Queue *q = (struct Queue *)malloc(sizeof(struct Queue));
+    q->front = q->rear = NULL;
+    return q;
 }
 
-void enQueue(struct Queue *q, char *new_title, char *new_artist, int new_date[3], float new_length)
+void enQueue(struct Queue *q, wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length)
 {
-	struct music *temp = newNode(new_title, new_artist, new_date, new_length);
+    struct music *temp = newNode(new_title, new_artist, new_date, new_length);
 
-	// If empty
-	if (q->rear == NULL)
-	{
-		q->front = q->rear = temp;
-		return;
-	}
+    // If empty
+    if (q->rear == NULL)
+    {
+        q->front = q->rear = temp;
+        return;
+    }
 
-	q->rear->next = temp;
-	q->rear = temp;
+    q->rear->next = temp;
+    q->rear = temp;
 }
 
 void deQueue(struct Queue *q)
 {
-	if (q->front == NULL)
-		return;
+    if (q->front == NULL)
+        return;
 
-	struct music *temp = q->front;
+    struct music *temp = q->front;
 
-	q->front = q->front->next;
+    q->front = q->front->next;
 
-	if (q->front == NULL)
-		q->rear = NULL;
+    if (q->front == NULL)
+        q->rear = NULL;
 
-	free(temp);
+    free(temp->title);
+    free(temp->artist);
+    free(temp);
 }
-
-/* void print_linkedList(struct music *music)
-{
-	while (music != NULL)
-	{
-		printf("Title: %s\n", music->title);
-		printf("Artist: %s\n", music->artist);
-		printf("Date: %04d-%02d-%02d\n", music->date[0], music->date[1], music->date[2]); // 寬度2，用0補
-		printf("Length: %f\n", music->length);
-		printf("------------------------\n");
-		music = music->next;
-	}
-} */
 
 void printQueue(struct Queue *q)
 {

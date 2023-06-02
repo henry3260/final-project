@@ -6,6 +6,7 @@
 #include "sort.h"
 #include "traverse.h"
 #include "delete.h"
+#include "input_output.h"
 
 int main()
 {
@@ -27,20 +28,36 @@ int main()
 			while (1)
 			{
 				int option = 0;
-				// options: import playlist, download playlist (information of the songs), display playlist, add songs, delete songs, .....
-				printf("........\n");
+				// options: import muisc collection, download playlist (information of the songs), display playlist, add songs, delete songs, .....
+				printf("What do you want to do?\n");
+				// printf()  provide options
 				scanf("%d", &option);
 
 				
-				struct Queue *q = createQueue();
+				// struct Queue *q = createQueue();
 
-				int new_date[3] = {2009, 10, 4};
-				enQueue(q, "歌名1", "歌手1", new_date, 4.3);
-				enQueue(q, "歌名2", "歌手2", new_date, 4.3);
-				deQueue(q);
-				enQueue(q, "歌名3", "歌手3", new_date, 4.3);
+				// int new_date[3] = {2009, 10, 4};
+				// enQueue(q, "歌名1", "歌手1", new_date, 4.3);
+				// enQueue(q, "歌名2", "歌手2", new_date, 4.3);
+				// deQueue(q);
+				// enQueue(q, "歌名3", "歌手3", new_date, 4.3);
 
-				printQueue(q);
+				// printQueue(q);
+				if (option == 1) // import muisc collection
+				{
+					struct music *head = read_music_collection("Chinese Songs.txt");
+					if (head == NULL)
+					{
+						printf("Error reading music collection.\n");
+						return 1;
+					}
+
+					print_linkedList(head);
+
+					free_linkedList(head);
+				}
+
+
 				
 				// break;
 			}
