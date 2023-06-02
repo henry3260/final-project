@@ -19,7 +19,7 @@ int songExists(struct music *head, char *title)
 }
 
 // 將新歌曲加入至音樂清單最前面
-void linkedList_push(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length)
+void linkedList_push(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
 { 
 
     if (songExists(*head, new_title))
@@ -35,13 +35,14 @@ void linkedList_push(struct music **head, char *new_title, char *new_artist, int
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
+    new_music->link = strdup(new_link);
 
     new_music->next = (*head);
     (*head) = new_music;
 }
 
 // 在指定歌曲後插入新歌曲
-void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new_artist, int new_date[3], float new_length)
+void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
 {
 
     if (prev_music == NULL)
@@ -63,13 +64,14 @@ void linkedList_insertAfter(struct music *prev_music, char *new_title, char *new
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
+    new_music->link = strdup(new_link);
 
     new_music->next = prev_music->next;
     prev_music->next = new_music;
 }
 
 // 將新歌曲加入至音樂清單最後面
-void linkedList_append(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length)
+void linkedList_append(struct music **head, char *new_title, char *new_artist, int new_date[3], float new_length, char *new_link)
 { 
     if (songExists(*head, new_title))
     {
@@ -85,6 +87,7 @@ void linkedList_append(struct music **head, char *new_title, char *new_artist, i
     for (int i = 0; i < 3; i++)
         new_music->date[i] = new_date[i];
     new_music->length = new_length;
+    new_music->link = strdup(new_link);
 
     new_music->next = NULL;
     if (*head == NULL)
@@ -110,6 +113,7 @@ void free_linkedList(struct music *head)
         head = head->next;
         free(temp->title);
         free(temp->artist);
+        free(temp->link);
         free(temp);
     }
 }
