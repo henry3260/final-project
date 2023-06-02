@@ -1,79 +1,97 @@
-#include "cJSON.h"
-#include "cJSON.c"
-#include "music.h"
-
-/* 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <wchar.h>
+#include <locale.h>
+struct music
+{
+    wchar_t title[1000];
+    wchar_t artist[1000];
+    int date[3];  // year, month, day
+    float length; // minutes
+    char address[1000];
+    struct music *next;
+};
+struct music music[40];
 int main()
 {
-    int input;
-    printf("Please choose which kind of file to input:\n");
-    printf("1.CSV\t2.JSON\n");
-    scanf("%d", &input);
-
-    while (input != 1 && input != 2)
+    FILE *file = fopen("456187811307680461_中文歌曲30首.txt", "r");
+    if (file == NULL)
     {
-        printf("ERROR!!!\n");
-        printf("Please choose which kind of file to input:\n");
-        printf("1.CSV\t2.JSON\n");
-        scanf("%d", &input);
+        printf("Error opening file.\n");
+        return 1;
+    }
+    else
+    {
+        printf("file open success.\n");
     }
 
-    if (input == 1)
+    int read = 0;
+    wchar_t line[1000];
+    wchar_t *pwc;
+    wchar_t *pt;
+    while (!feof(file))
     {
-        FILE *file;
-        file = fopen("file.txt", "r");
-        if (file == NULL)
+        if (fgetws(line, sizeof(line) / sizeof(line[0]), file) != NULL)
         {
-            printf("Error opening file.\n");
-            return 1;
-        }
-
-        struct music music[30];
-
-        int read = 0;
-        int record = 0;
-        do
-        {
-            read = fscanf(file, "%100[^,] ,%100[^,] ,%d ,%d ,%d ,%f\n", music[record].title, music[record].artist, &music[record].date[0], &music[record].date[1], &music[record].date[2], &music[record].length);
-            if (read == 4)
+            // wprintf(L"%ls", line);
+            // printf("---\n");
+            int idx = 0;
+            pwc = wcstok(line, L",", &pt);
+            while (pwc != NULL)
             {
-                record++;
+                //wprintf(L"%ls\n", pwc);
+                if(idx == 0)
+                {
+                    wcscpy(music[read].artist, pwc);
+                    //wprintf(L"%ls\n" , music[read].artist);
+                }
+                else if(idx == 1)
+                {
+                    wcscpy(music[read].title, pwc);
+                    //wprintf(L"%ls\n" , music[read].title);
+                }
+                else if(idx == 2)
+                {
+                    int year;
+                    year = wcstol(pwc , NULL , 10);
+                    music[read].date[0] = year;
+                    //wprintf(L"%d\n" , music[read].date[0]);
+                }
+                else if(idx == 3)
+                {
+                    int month;
+                    month = wcstol(pwc , NULL , 10);
+                    music[read].date[1] = month;
+                    //wprintf(L"%d\n" , music[read].date[1]);
+                }
+                else if(idx == 4)
+                {
+                    int day;
+                    day = wcstol(pwc , NULL , 10);
+                    music[read].date[2] = day;
+                    //wprintf(L"%d\n" , music[read].date[2]);
+                }
+                else if(idx == 5)
+                {
+                    float time;
+                    time = wcstof(pwc , NULL);
+                    music[read].length = time;
+                    //wprintf(L"%.2f\n" , music[read].length);
+                }
+                else if(idx == 6)
+                {
+                    setlocale(LC_ALL , "");
+                    wcstombs(music[read].address , pwc , sizeof(music[read].address));
+                    //printf("%s\n" , music[read].address);
+                }
+                pwc = wcstok(NULL, L",", &pt);
+                idx++;
             }
-            else if (read != EOF)
-            {
-                printf("File format incorrect.\n");
-                return 1;
-            }
-        } while (read != EOF);
-
-        fclose(file);
-        printf("\n%d records read.\n\n", record);
-
-        for (int i = 0; i < record; i++)
-        {
-            printf("%s %s %d %d %d %.2f\n", music[i].title, music[i].artist, music[i].date[0], music[i].date[1], music[i].date[2], music[i].length);
         }
+        read++;
     }
+    fclose(file);
 
-    if (input == 2)
-    {
-        FILE *file;
-        file = fopen("file.json" , "r");
-        char buffer[1000];
-        cJSON *json , *title , *artist , *date , *length;
-        fread(buffer , 1024 , 1 , file);
-        fclose(file);
-        json = cJSON_Parse(buffer);
-        title = cJSON_GetObjectItem(json , "title");
-        artist = cJSON_GetObjectItem(json , "artist");
-        date = cJSON_GetObjectItem(json , "date");
-        length = cJSON_GetObjectItem(json , "length");
-        printf("%s\n", title->valuestring);
-        printf("%s\n", artist->valuestring);
-        printf("%d\n", date->valueint);
-        printf("%.2f\n", length->valuedouble);
-        cJSON_Delete(json);
-    }
     return 0;
 }
- */
