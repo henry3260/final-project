@@ -1,4 +1,4 @@
-main : main.o music.o add.o queue.o search.o sort.o traverse.o delete.o input_output.o
+main: main.o music.o add.o queue.o search.o sort.o traverse.o delete.o input_output.o
 	clang -o music_collection main.o music.o add.o queue.o search.o sort.o traverse.o delete.o input_output.o
 main.o: main.c music.h add.h queue.h search.h sort.h traverse.h delete.h input_output.h
 	clang -c main.c
