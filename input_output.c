@@ -82,3 +82,42 @@ struct music *read_music_collection(const char *filename)
     fclose(file);
     return head;
 }
+
+void write_music_collection(const char *filename, struct music *head)
+{
+    setlocale(LC_ALL, "zh_CN.UTF-8"); // Set locale to support Chinese characters
+    FILE *file = fopen(filename, "w");
+    if (file == NULL)
+    {
+        printf("Error opening file.\n");
+        return;
+    }
+    else
+    {
+        printf("File opened successfully.\n\n");
+    }
+
+    struct music *current = head;
+    while (current != NULL)
+    {
+        fwprintf(file, L"%ls,%ls,%d,%d,%d,%.2f,%ls",
+                 current->artist,
+                 current->title,
+                 current->date[0],
+                 current->date[1],
+                 current->date[2],
+                 current->length,
+                 current->link);
+        current = current->next;
+    }
+
+    fclose(file);
+}
+
+/* int main()
+{
+    struct music *head = read_music_collection("input.txt"); // input.txt
+    write_music_collection("output.txt", head);
+
+    return 0;
+} */
