@@ -14,7 +14,7 @@ void linkedList_delete(struct music **head, wchar_t *title, wchar_t *artist)
         free(current->artist);
         free(current->link);
         free(current);
-        wprintf(L"已成功刪除%s的%s\n", artist, title);
+        wprintf(L"已成功刪除%ls的%ls\n", artist, title);
         return;
     }
 
@@ -28,7 +28,7 @@ void linkedList_delete(struct music **head, wchar_t *title, wchar_t *artist)
     // 若歌曲不存在，列印錯誤訊息
     if (current == NULL)
     {
-        wprintf(L"%s的%s不存在於資料庫中\n", artist, title);
+        wprintf(L"%ls的%ls不存在於資料庫中\n", artist, title);
         return;
     }
 
@@ -38,7 +38,7 @@ void linkedList_delete(struct music **head, wchar_t *title, wchar_t *artist)
     free(current->artist);
     free(current->link);
     free(current);
-    wprintf(L"已成功刪除%s的%s\n", artist, title);
+    wprintf(L"已成功刪除%ls的%ls\n", artist, title);
 }
 
 /* 

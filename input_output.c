@@ -5,7 +5,7 @@
 struct music *read_music_collection(const char *filename)
 {
     setlocale(LC_ALL, "zh_CN.UTF-8"); // Set locale to support Chinese characters
-    FILE *file = fopen(filename, "r");
+    FILE *file = fopen(filename, "r+");
     if (file == NULL)
     {
         printf("Error opening file.\n");
