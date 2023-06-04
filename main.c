@@ -66,7 +66,12 @@ int main()
 		{
 			///////
 			printf("Playing game...");
+			char coronaPath[] = "/Applications/Corona-3690/Corona\\ Simulator.app";
+        	char mainLuaPath[] = "~/Documents/CCU/111-2/ProgramDesignII/Final/test2/musicGame/main.lua"; 
+
+
 			///////
+			
 
 
 			// go back to playlist
