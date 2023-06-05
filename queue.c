@@ -31,7 +31,7 @@ struct Queue *createQueue()
 
 void enQueue(struct Queue *q, wchar_t *new_title, wchar_t *new_artist, int new_date[3], float new_length, wchar_t *new_link)
 {
-    struct music *temp = newNode(new_title, new_artist, new_date, new_length);
+    struct music *temp = newNode(new_title, new_artist, new_date, new_length, new_link);
 
     // If empty
     if (q->rear == NULL)
@@ -69,7 +69,7 @@ void printQueue(struct Queue *q)
 		printf("Queue is empty.\n");
 		return;
 	}
-    
+
 	struct music *current = q->front;
 	print_linkedList(current);
 }
