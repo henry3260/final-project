@@ -69,7 +69,10 @@ int main()
 			char coronaPath[] = "/Applications/Corona-3690/Corona\\ Simulator.app";
         	char mainLuaPath[] = "~/Documents/CCU/111-2/ProgramDesignII/Final/test2/musicGame/main.lua"; 
 
- 
+        	char command[256];
+        	snprintf(command, sizeof(command), "open %s --args %s", coronaPath, mainLuaPath);
+
+        	system(command);
 			///////
 			
 
