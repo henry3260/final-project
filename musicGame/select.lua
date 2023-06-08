@@ -3,6 +3,7 @@ local scene = composer.newScene()
 local sp_music = audio.loadStream("images/shoot.wav")
 local a =12
 local b= 6
+
 function scene:create(event)
 	names={"11","22","33","11","22","33"}
 	local total=6
@@ -20,6 +21,7 @@ function scene:create(event)
 	background.y=240
 	background.alpha=0.5
     sceneGroup:insert(background)
+
 	function song_display(middle)
 		if middle-1 == 0 then
 			left1=names[total]
@@ -83,7 +85,6 @@ function scene:create(event)
 		pos_left2.x=-200
 		pos_left2.y=340
 		
-		
 		sceneGroup:insert(pos_mid)
 		sceneGroup:insert(pos_right1)
 		sceneGroup:insert(pos_right2)
@@ -119,6 +120,7 @@ function scene:create(event)
 		transition.to(pos_mid_s, {time=slide_time, x=pos_mid_s.x-260, y=pos_mid_s.y+70,xScale=0.3,yScale=0.3,otation=0})
 		transition.to(pos_right1_s, {time=slide_time, x=pos_right1_s.x-260, y=pos_right1_s.y-70,xScale=3,yScale=3,otation=0})
 		transition.to(pos_right2_s, {time=slide_time, x=pos_right2_s.x-110, y=pos_right2_s.y-20,xScale=3,yScale=3,otation=0})
+		
 		local function clear()
 			pos_left2:removeSelf()
 			pos_left2= nil 
@@ -140,83 +142,87 @@ function scene:create(event)
 			pos_right2_s= nil 
 			pos_mid_s:removeSelf()
 			pos_mid_s= nil 
+
 			if middle-1 == 0 then
 			left1=names[total]
 			left2=names[total-1]
 			right1=names[middle+1]
 			right2=names[middle+2]
-		elseif middle-2 == 0 then
-			left1=names[middle-1]
-			left2=names[total]
-			right1=names[middle+1]
-			right2=names[middle+2]
-		elseif middle+1 == total+1 then
-			left1=names[middle-1]
-			left2=names[middle-2]
-			right1=names[1]
-			right2=names[2]
-		elseif middle+2 == total+1 then
-			left1=names[middle-1]
-			left2=names[middle-2]
-			right1=names[total]
-			right2=names[1]
-		else
-			left1=names[middle-1]
-			left2=names[middle-2]
-			right1=names[middle+1]
-			right2=names[middle+2]
-		end
 
-		pos_mid_s = display.newImageRect("images/song"..names[middle]..names[middle]..".png", 360, 180)
-		pos_mid_s.x=176-a
-		pos_mid_s.y=253-b
-		pos_mid = display.newImageRect("images/song"..names[middle]..".png", 360, 180)
-		pos_mid.x=170
-		pos_mid.y=250
+			elseif middle-2 == 0 then
+				left1=names[middle-1]
+				left2=names[total]
+				right1=names[middle+1]
+				right2=names[middle+2]
 
-		pos_right1_s = display.newImageRect("images/song"..right1..right1..".png", 120, 60)
-		pos_right1_s.x=432-a/3
-		pos_right1_s.y=321-b/3
-		pos_right1 = display.newImageRect("images/song"..right1..".png", 120, 60)
-		pos_right1.x=430
-		pos_right1.y=320
+			elseif middle+1 == total+1 then
+				left1=names[middle-1]
+				left2=names[middle-2]
+				right1=names[1]
+				right2=names[2]
+				
+			elseif middle+2 == total+1 then
+				left1=names[middle-1]
+				left2=names[middle-2]
+				right1=names[total]
+				right2=names[1]
 
-		pos_right2_s = display.newImageRect("images/song"..right2..right2..".png", 40, 20)
-		pos_right2_s.x=540.666-a/9
-		pos_right2_s.y=340.333-b/9
-		pos_right2 = display.newImageRect("images/song"..right2..".png", 40, 20)
-		pos_right2.x=540
-		pos_right2.y=340
-		
-		pos_left1_s = display.newImageRect("images/song"..left1..left1..".png", 120, 60)
-		pos_left1_s.x=-88-a/3
-		pos_left1_s.y=321-b/3
-		pos_left1 = display.newImageRect("images/song"..left1..".png", 120, 60)
-		pos_left1.x=-90
-		pos_left1.y=320
-		
-		pos_left2_s = display.newImageRect("images/song"..left2..left2..".png", 40, 20)
-		pos_left2_s.x=-199.333-a/9
-		pos_left2_s.y=340.333-b/9
-		pos_left2 = display.newImageRect("images/song"..left2..".png", 40, 20)
-		pos_left2.x=-200
-		pos_left2.y=340
-		
-		
-		sceneGroup:insert(pos_mid)
-		sceneGroup:insert(pos_right1)
-		sceneGroup:insert(pos_right2)
-		sceneGroup:insert(pos_left1)
-		sceneGroup:insert(pos_left2)
-		sceneGroup:insert(pos_mid_s)
-		sceneGroup:insert(pos_right1_s)
-		sceneGroup:insert(pos_right2_s)
-		sceneGroup:insert(pos_left1_s)
-		sceneGroup:insert(pos_left2_s)
+			else
+				left1=names[middle-1]
+				left2=names[middle-2]
+				right1=names[middle+1]
+				right2=names[middle+2]
+			end
+
+			pos_mid_s = display.newImageRect("images/song"..names[middle]..names[middle]..".png", 360, 180)
+			pos_mid_s.x=176-a
+			pos_mid_s.y=253-b
+			pos_mid = display.newImageRect("images/song"..names[middle]..".png", 360, 180)
+			pos_mid.x=170
+			pos_mid.y=250
+
+			pos_right1_s = display.newImageRect("images/song"..right1..right1..".png", 120, 60)
+			pos_right1_s.x=432-a/3
+			pos_right1_s.y=321-b/3
+			pos_right1 = display.newImageRect("images/song"..right1..".png", 120, 60)
+			pos_right1.x=430
+			pos_right1.y=320
+
+			pos_right2_s = display.newImageRect("images/song"..right2..right2..".png", 40, 20)
+			pos_right2_s.x=540.666-a/9
+			pos_right2_s.y=340.333-b/9
+			pos_right2 = display.newImageRect("images/song"..right2..".png", 40, 20)
+			pos_right2.x=540
+			pos_right2.y=340
+			
+			pos_left1_s = display.newImageRect("images/song"..left1..left1..".png", 120, 60)
+			pos_left1_s.x=-88-a/3
+			pos_left1_s.y=321-b/3
+			pos_left1 = display.newImageRect("images/song"..left1..".png", 120, 60)
+			pos_left1.x=-90
+			pos_left1.y=320
+			
+			pos_left2_s = display.newImageRect("images/song"..left2..left2..".png", 40, 20)
+			pos_left2_s.x=-199.333-a/9
+			pos_left2_s.y=340.333-b/9
+			pos_left2 = display.newImageRect("images/song"..left2..".png", 40, 20)
+			pos_left2.x=-200
+			pos_left2.y=340
+			
+			sceneGroup:insert(pos_mid)
+			sceneGroup:insert(pos_right1)
+			sceneGroup:insert(pos_right2)
+			sceneGroup:insert(pos_left1)
+			sceneGroup:insert(pos_left2)
+			sceneGroup:insert(pos_mid_s)
+			sceneGroup:insert(pos_right1_s)
+			sceneGroup:insert(pos_right2_s)
+			sceneGroup:insert(pos_left1_s)
+			sceneGroup:insert(pos_left2_s)
 		end
 		
 		timer.performWithDelay( slide_time+10, clear,1 )
-		
+			
 	end
 
 	function R_shift(middle)
@@ -239,6 +245,7 @@ function scene:create(event)
 		transition.to(pos_mid_s, {time=slide_time, x=pos_mid_s.x+260, y=pos_mid_s.y+70,xScale=0.3,yScale=0.3,otation=0})
 		transition.to(pos_right1_s, {time=slide_time, x=pos_right1_s.x+110, y=pos_right1_s.y+20,xScale=0.3,yScale=0.3,otation=0})
 		transition.to(pos_right2_s, {time=slide_time, x=pos_right2_s.x+30, y=pos_right2_s.y+15,xScale=0.1,yScale=0.1,otation=0})
+		
 		local function clear()
 			pos_left2:removeSelf()
 			pos_left2= nil 
@@ -321,7 +328,6 @@ function scene:create(event)
 		pos_left2 = display.newImageRect("images/song"..left2..".png", 40, 20)
 		pos_left2.x=-200
 		pos_left2.y=340
-		
 		
 		sceneGroup:insert(pos_mid)
 		sceneGroup:insert(pos_right1)
