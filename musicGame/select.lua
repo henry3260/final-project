@@ -1,8 +1,8 @@
 local composer = require("composer") 
 local scene = composer.newScene()
 local sp_music = audio.loadStream("images/shoot.wav")
-local a =12
-local b= 6
+local a = 12
+local b = 6
 
 function scene:create(event)
 	names={"11","22","33","11","22","33"}
