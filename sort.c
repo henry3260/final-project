@@ -1,103 +1,132 @@
 #include "music.h"
 #include "sort.h"
-
-// Finding last music of linked list
-struct music *last_node(struct music *head)
+//找出該linked list 目前的最後一首音樂
+struct music *getTail(struct music *cur)
 {
-    struct music *temp = head;
-    while (temp != NULL && temp->next != NULL)
+    while (cur != NULL && cur->next != NULL)
     {
-        temp = temp->next;
+        cur = cur->next;
     }
-    return temp;
+
+    return cur;
 }
-
-struct music *partition_time(struct music *first, struct music *last)
+//以基準點音樂長度為準，比它短
+struct music *partition(int mode,struct music *head, struct music *end, struct music **newHead, struct music **newEnd)
 {
-    // Get first node of given linked list
-    struct music *pivot = first;
-    struct music *front = first;
-    float tmp;
-    while (front != NULL && front != last)
-    {
-        if (front->length < last->length)
+    struct music *pivot = end;
+    struct music *prev = NULL;
+    struct music *cur = head;
+    struct music *tail = pivot;
+    if(mode==1){
+        while (cur != pivot)
         {
-            pivot = first;
+            //比基準點的音樂時間短
+            if (cur->length < pivot->length)
+            {
+                if ((*newHead) == NULL){
+                    (*newHead) = cur;
+                }
 
-            // Swapping  node values
-            tmp = first->length;
-            first->length = front->length;
-            front->length = tmp;
-
-            // Visiting the next node
-            first = first->next;
+                prev = cur;
+                cur = cur->next;
+            }
+        //比基準點音樂時間長
+            else
+            {
+                if (prev) {
+                    prev->next = cur->next;
+                }
+             //刪除原先的節點，並接到tail後面
+                struct music *tmp = cur->next;
+                cur->next = NULL;
+                tail->next = cur;
+                tail = cur;
+                cur = tmp;
+            }
+        }
+    
+        //如果每首音樂都比基準音樂長
+        if ((*newHead) == NULL) {
+            (*newHead) = pivot;
         }
 
-        // Visiting the next node
-        front = front->next;
+        (*newEnd) = tail;
+        //基準點位置
+        return pivot;
+    }
+    else{
+        while (cur != pivot)
+        {
+            
+            if (wcscmp(cur->artist,pivot->artist)<0)
+            {
+                if ((*newHead) == NULL){
+                    (*newHead) = cur;
+                }
+
+                prev = cur;
+                cur = cur->next;
+            }
+            //比基準點音樂時間長
+            else
+            {
+                if (prev) {
+                    prev->next = cur->next;
+                }
+             //刪除原先的節點，並接到tail後面
+                struct music *tmp = cur->next;
+                cur->next = NULL;
+                tail->next = cur;
+                tail = cur;
+                cur = tmp;
+            }
+        }
+    
+    //如果每首音樂都比基準音樂長
+    if ((*newHead) == NULL) {
+        (*newHead) = pivot;
     }
 
-    // Change last node value to current node
-    tmp = first->length;
-    first->length = last->length;
-    last->length = tmp;
+    (*newEnd) = tail;
+    //基準點位置
     return pivot;
+    }
 }
-struct music *partition_name(struct music *first, struct music *last)
-{
 
-    struct music *pivot = first;
-    struct music *front = first;
-    char *name;
-    while (front != NULL && front != last)
+struct music *quickSortRecur(int mode,struct music *head, struct music *end){
+    if (!head || head == end)
     {
-        if (strcmp(front->artist, last->artist) < 0)
-        {
-            pivot = first;
+        return head;
+    }
 
-            // Swapping  node values
-            strcpy(name, first->artist);
-            first->artist = front->artist;
-            front->artist = name;
+    struct music *newHead = NULL;
+    struct music *newEnd = NULL;
 
-            // Visiting the next node
-            first = first->next;
+    struct music *pivot = partition(mode,head, end, &newHead, &newEnd);
+
+    if (newHead != pivot)
+    {
+
+        struct music *tmp = newHead;
+
+        while (tmp->next != pivot) {
+            tmp = tmp->next;
         }
 
-        // Visiting the next node
-        front = front->next;
+        tmp->next = NULL;
+
+        newHead = quickSortRecur(mode,newHead, tmp);
+
+        tmp = getTail(newHead);
+        tmp->next = pivot;
     }
 
-    // Change last node value to current node
-    name = first->artist;
-    first->artist = last->artist;
-    last->artist = name;
-    return pivot;
+    pivot->next = quickSortRecur(mode,pivot->next, newEnd);
+
+    return newHead;
 }
 
-// Performing quick sort in the given linked list
-void quick_sort(int mode, struct music *first, struct music *last)
-{
-    struct music *pivot = NULL;
-    if (first == last)
-    {
-        return;
-    }
-    if (mode == 1)
-    {
-        pivot = partition_time(first, last);
-    }
-    else if (mode == 2)
-    {
-        pivot = partition_name(first, last);
-    }
-    if (pivot != NULL && pivot->next != NULL)
-    {
-        quick_sort(mode, pivot->next, last);
-    }
-
-    if (pivot != NULL && first != pivot)
-    {
-        quick_sort(mode, first, pivot);
-    }
+void quickSort(int mode,struct music **headRef){
+    (*headRef) = quickSortRecur(mode,*headRef, getTail(*headRef));
+    return;
 }
