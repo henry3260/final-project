@@ -39,7 +39,7 @@ int main()
                 printf("6. 搜尋特定歌曲\n");
                 printf("7. 音樂清單隨機排序\n");
                 printf("8. 下載音樂庫（以供下次使用）\n");
-                printf("9. 離開\n");
+                printf("9. 離開音樂庫\n");
                 scanf(" %d", &option);
 
                 // struct music *head;
@@ -121,7 +121,7 @@ int main()
                 if (option == 6)
                 {
                     wchar_t target_artist[100];
-                    wchar_t target_title[100]
+                    wchar_t target_title[100];
                     int mode;
                     printf("您想用什麼方式搜尋\n");
                     printf("1.歌手\n");
@@ -154,8 +154,7 @@ int main()
                 }
                 if (option == 9)
                 {
-                    printf("下次見!\n");
-                    return 0;
+                    break;
                 }
             }
         }
