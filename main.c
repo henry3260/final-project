@@ -8,7 +8,7 @@
 #include "delete.h"
 #include "input_output.h"
 
-int main()
+int main() 
 {
     char username[1000];
     printf("我可以叫您什麼？\n");
