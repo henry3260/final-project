@@ -71,8 +71,7 @@ int main()
                 {
                     struct music *head; // 原始連結串列的頭部指針
                     int mode = 1;       // 模式設置為1，表示以音樂長度進行排序
-
-                    quickSort(mode, &head);
+                    
                     printf("有兩種排序方式\n"
                            "請您選擇其中一種\n");
                     printf("1. 按照歌曲長度\n");
