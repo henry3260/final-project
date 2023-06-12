@@ -115,6 +115,7 @@ int binary_search(struct music *head, float target, float arr[], int nums)
             right = mid - 1;
         }
     }
+    return 0;
 }
 
 /*
