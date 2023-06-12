@@ -1,8 +1,6 @@
 #include "music.h"
 #include "traverse.h"
 #include "queue.h"
-#include "delete.h"
-#include "add.h"
 
 struct Queue
 {
@@ -75,108 +73,6 @@ void printQueue(struct Queue *q)
 	struct music *current = q->front;
 	print_linkedList(current);
 }
-
-int getSize(struct Queue *q)
-{
-    int count = 0;
-    struct music *current = q->front;
-
-    while (current != NULL)
-    {
-        count++;
-        current = current->next;
-    }
-
-    return count;
-}
-
-struct music *dequeueAtIndex(struct Queue *q, int index)
-{
-    if (index < 0 || index >= getSize(q))
-    {
-        return NULL; // Invalid index
-    }
-
-    if (index == 0)
-    {
-        // Dequeue from the front
-        struct music *temp = q->front;
-        q->front = q->front->next;
-
-        if (q->front == NULL)
-        {
-            q->rear = NULL;
-        }
-
-        return temp;
-    }
-
-    struct music *prev = NULL;
-    struct music *current = q->front;
-    int currentIndex = 0;
-
-    // Traverse to the song at the specified index
-    while (current != NULL && currentIndex != index)
-    {
-        prev = current;
-        current = current->next;
-        currentIndex++;
-    }
-
-    if (current != NULL)
-    {
-        // Dequeue the song at the specified index
-        prev->next = current->next;
-
-        if (prev->next == NULL)
-        {
-            q->rear = prev;
-        }
-
-        return current;
-    }
-
-    return NULL; // Song not found at the specified index
-}
-
-void shufflePlaylist(struct music **head)
-{
-    struct Queue *shuffleQueue = createQueue();
-    struct music *current = *head;
-
-    // Enqueue all songs from the linked list to the shuffle queue
-    while (current != NULL)
-    {
-        enQueue(shuffleQueue, current->title, current->artist, current->date, current->length, current->link);
-        current = current->next;
-    }
-
-    // Clear the existing linked list playlist
-    free_linkedList(*head);
-    *head = NULL;
-
-    // Dequeue songs from the shuffle queue and enqueue them back to the linked list in a random order
-    while (shuffleQueue->front != NULL)
-    {
-        // Dequeue a random song from the shuffle queue
-        int queueSize = getSize(shuffleQueue);
-        int randomIndex = rand() % queueSize;
-        struct music *selectedSong = dequeueAtIndex(shuffleQueue, randomIndex);
-
-        // Enqueue the selected song to the linked list playlist
-        linkedList_append(head, selectedSong->title, selectedSong->artist, selectedSong->date, selectedSong->length, selectedSong->link);
-
-        // Free the memory of the selected song
-        free(selectedSong->title);
-        free(selectedSong->artist);
-        free(selectedSong->link);
-        free(selectedSong);
-    }
-
-    // Free the memory of the shuffle queue
-    free(shuffleQueue);
-}
-
 
 /* int main(){
 	struct Queue* q = createQueue();
