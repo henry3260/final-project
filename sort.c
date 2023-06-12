@@ -1,5 +1,6 @@
 #include "music.h"
 #include "sort.h"
+
 //找出該linked list 目前的最後一首音樂
 struct music *getTail(struct music *cur)
 {
