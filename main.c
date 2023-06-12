@@ -142,7 +142,7 @@ int main()
                         search_title(head, target_title);
                     }
                 }
-                if (option == 7)
+                if (option == 7) 
                 {
                     shufflePlaylist(&head);
                     print_linkedList(head);
