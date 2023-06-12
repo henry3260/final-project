@@ -3,18 +3,22 @@
 #include "music.h"
 #include "search.h"
 
-int my_strcmp(const wchar_t* str1, const wchar_t* str2) {
+int my_strcmp(const wchar_t *str1, const wchar_t *str2)
+{
     int i = 0;
-    while (str1[i] != L'\0' && str2[i] != L'\0') {
-        if (str1[i] != str2[i]) {
+    while (str1[i] != L'\0' && str2[i] != L'\0')
+    {
+        if (str1[i] != str2[i])
+        {
             return str1[i] - str2[i];
         }
         i++;
     }
 
     // Check if both strings have reached the end
-    if (str1[i] == L'\0' && str2[i] == L'\0') {
-        return 0;  // Strings are equal
+    if (str1[i] == L'\0' && str2[i] == L'\0')
+    {
+        return 0; // Strings are equal
     }
 
     // One string is shorter than the other
@@ -46,16 +50,17 @@ struct music *search_artist(struct music *head, wchar_t *target_artist)
     return new_list;
 }
 
-struct music *search_title(struct music *head,  wchar_t *target_title)
+struct music *search_title(struct music *head, wchar_t *target_title)
 {
     struct music *current = head;
     while (current != NULL)
     {
         if (my_strcmp(current->title, target_title) == 0)
         {
-            printf("title: %ls\n", current->title);
+            printf("歌手:%ls\n", current->artist);
             printf("node address: %p\n", current);
-
+            printf("發行日期:%d-%d-%d\n", current->date[0], current->date[1], current->date[2]);
+            printf("歌曲長度: %f分\n", current->length);
             return current;
         }
         current = current->next;
@@ -112,7 +117,7 @@ int binary_search(struct music *head, float target, float arr[], int nums)
     }
 }
 
-/* 
+/*
 int main()
 {
     struct music *node1 = malloc(sizeof(struct music));
