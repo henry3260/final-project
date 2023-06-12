@@ -29,7 +29,7 @@ int main()
             while (1)
             {
                 int option = 0;
-
+                printf("\n\n------------------------\n");
                 printf("您想做什麼事\n");
                 printf("1. 匯入音樂庫\n");
                 printf("2. 查看音樂清單\n");
