@@ -8,7 +8,7 @@ struct music *read_music_collection(const char *filename)
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
-        printf("Error opening file.\n"); 
+        printf("檔案開啟失敗\n"); 
         return NULL;
     }
     else
@@ -89,12 +89,12 @@ void write_music_collection(const char *filename, struct music *head)
     FILE *file = fopen(filename, "w");
     if (file == NULL)
     {
-        printf("Error opening file.\n");
+        printf("檔案儲存失敗\n");
         return;
     }
     else
     {
-        printf("File opened successfully.\n\n");
+        printf("檔案儲存成功\n\n");
     }
 
     struct music *current = head;
