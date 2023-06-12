@@ -75,7 +75,7 @@ int main()
                     printf("2.artist name\n");
                     scanf(" %d", &mode);
                     quickSort(mode, &head);
-                    void print_linkedList(head);
+                    print_linkedList(head);
                 }
                 if (option == 3)
                 {
@@ -104,7 +104,7 @@ int main()
                     new_date[0] = year;
                     new_date[1] = month;
                     new_date[2] = day;
-                    void linkedList_append(&head, new_title, new_artist, new_date[3], new_length, new_link);
+                    linkedList_append(&head, new_title, new_artist, new_date[3], new_length, new_link);
                 }
                 if (option == 4)
                 {
@@ -125,18 +125,20 @@ int main()
                     printf("what do you want to search\n");
                     printf("1.artist\n");
                     printf("2.title\n");
-                    scanf(" %d", mode);
+                    scanf(" %d", &mode);
                     if (mode == 1)
                     {
+                        struct music *temp;
                         printf("Please enter the artist name:");
-                        scanf("%ls", &target_artist);
-                        struct music *search_artist(head, target_artist);
+                        scanf("%ls", target_artist);
+                        temp = search_artist(head, target_artist);
                     }
                     else if (mode == 2)
                     {
+                        struct music *temp;
                         printf("Please enter the title:");
                         scanf("%ls", &target_title);
-                        struct music *search_title(head, target_title);
+                        temp = search_title(head, target_title);
                     }
                 }
                 if (option == 6)
