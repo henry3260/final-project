@@ -18,6 +18,7 @@ int main()
     int choice = 0;
     do
     {
+        printf("\n\n------------------------\n");
         printf("Hi %s! 請選擇:\n", username);
         printf("1. 查看音樂播放清單\n");
         printf("2. 玩遊戲\n");
