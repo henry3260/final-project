@@ -69,7 +69,6 @@ int main()
                 }
                 if (option == 3)
                 {
-                    struct music *head; // 原始連結串列的頭部指針
                     int mode = 1;       // 模式設置為1，表示以音樂長度進行排序
 
                     printf("有兩種排序方式\n"
@@ -122,8 +121,7 @@ int main()
                 if (option == 6)
                 {
                     wchar_t target_artist[100];
-                    wchar_t target_title[100];
-                    struct music *head;
+                    wchar_t target_title[100]
                     int mode;
                     printf("您想用什麼方式搜尋\n");
                     printf("1.歌手\n");
