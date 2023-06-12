@@ -1,12 +1,12 @@
 
-#Music Collection And Musical Game
-##Instruction
-####You must enter the following command in terminal
+# Music Collection And Musical Game
+## Instruction
+#### You must enter the following command in terminal
 + make
 + ./music_collection
 ----
 
-####First sence
+#### First sence
 you will see the main operation menu below.
 What do you want to do?
 1. import muisc collection
