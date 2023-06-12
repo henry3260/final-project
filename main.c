@@ -113,9 +113,9 @@ int main()
                 {
                     wchar_t title[100];
                     wchar_t artist[100];
-                    printf("您想刪除哪首歌？");
+                    printf("您想刪除哪首歌？\n");
                     scanf("%ls", title);
-                    printf("是誰的歌？");
+                    printf("是誰的歌？\n");
                     scanf("%ls", artist);
                     linkedList_delete(&head, title, artist);
                 }
@@ -145,6 +145,7 @@ int main()
                 if (option == 7)
                 {
                     shufflePlaylist(&head);
+                    print_linkedList(head);
                 }
                 if (option == 8)
                 {
@@ -155,9 +156,9 @@ int main()
                 }
                 if (option == 9)
                 {
-                    break;
+                    printf("下次見!\n");
+                    return 0;
                 }
-                // break;
             }
         }
         else if (choice == 2)
