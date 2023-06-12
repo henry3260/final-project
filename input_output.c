@@ -2,7 +2,7 @@
 #include "add.h"
 #include "input_output.h"
 
-struct music *read_music_collection(const char *filename)
+struct music *read_music_collection(const char *filename) 
 {
     setlocale(LC_ALL, "zh_CN.UTF-8"); // Set locale to support Chinese characters
     FILE *file = fopen(filename, "r");
