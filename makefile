@@ -6,7 +6,7 @@ music.o: music.c music.h
 	clang -c music.c
 add.o: add.c music.h add.h
 	clang -c add.c
-queue.o: queue.c music.h queue.h traverse.h
+queue.o: queue.c music.h queue.h traverse.h delete.h add.h
 	clang -c queue.c
 search.o: search.c music.h search.h
 	clang -c search.c
