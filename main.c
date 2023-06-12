@@ -35,7 +35,8 @@ int main()
                 printf("3. add songs\n");
                 printf("4. delete songs\n");
                 printf("5. search\n");
-                printf("6. exit\n");
+                printf("6. shuffle playlist\n");
+                printf("7. exit\n");
 
                 // printf()  provide options
                 scanf(" %d", &option);
@@ -74,36 +75,46 @@ int main()
                     printf("2.artist name\n");
                     scanf(" %d", &mode);
                     quickSort(mode, &head);
-                    void print_linkedList(struct music * head);
+                    void print_linkedList(head);
                 }
                 if (option == 3)
                 {
                     wchar_t new_title[100];
                     wchar_t new_artist[100];
+                    int new_date[3];
                     int year, month, day;
                     int nums;
+                    int new_length;
+                    wchar_t new_link[100];
                     printf("Please enter a music title: ");
-                    scanf("%s", &new_title);
+                    scanf("%ls", new_title);
                     printf("Please enter a artist: ");
-                    scanf("%s", &new_artist);
-                    printf("Please enter a date: \n");
+                    scanf("%ls", new_artist);
+                    printf("Please enter a music length: ");
+                    scanf("%d", &new_length);
+                    printf("Please enter a date: ");
                     printf("Year: ");
-                    scanf(" %d", year);
+                    scanf(" %d", &year);
                     printf("Month: ");
-                    scanf(" %d", month);
+                    scanf(" %d", &month);
                     printf("Day: ");
-                    scanf(" %d", day);
-                    struct music *newNode(wchar_t * new_title, wchar_t * new_artist, int new_date[3], float new_length, wchar_t *new_link);
+                    scanf(" %d", &day);
+                    printf("Please enter a youtube link: ");
+                    printf("%ls", new_link);
+                    new_date[0] = year;
+                    new_date[1] = month;
+                    new_date[2] = day;
+                    void linkedList_append(&head, new_title, new_artist, new_date[3], new_length, new_link);
                 }
                 if (option == 4)
                 {
                     wchar_t title[100];
                     wchar_t artist[100];
                     printf("which song do you want to delete: ");
-                    scanf("%s", title);
+                    scanf("%ls", title);
                     printf("artist: ");
-                    scanf("%s", artist);
-                    void linkedList_delete(struct music * *head, wchar_t * title, wchar_t * artist);
+                    scanf("%ls", artist);
+                    void linkedList_delete(&head, title, artist);
                 }
                 if (option == 5)
                 {
@@ -118,17 +129,21 @@ int main()
                     if (mode == 1)
                     {
                         printf("Please enter the artist name:");
-                        scanf("%s", &target_artist);
-                        struct music *search_artist(struct music * head, wchar_t * target_artist);
+                        scanf("%ls", &target_artist);
+                        struct music *search_artist(head, target_artist);
                     }
                     else if (mode == 2)
                     {
                         printf("Please enter the title:");
-                        scanf("%s", &target_title);
-                        struct music *search_title(struct music * head, wchar_t * target_title);
+                        scanf("%ls", &target_title);
+                        struct music *search_title(head, target_title);
                     }
                 }
                 if (option == 6)
+                {
+                    shufflePlaylist(&head);
+                }
+                if (option == 7)
                 {
                     break;
                 }
