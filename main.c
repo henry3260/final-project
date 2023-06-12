@@ -14,7 +14,7 @@ int main()
     printf("我可以叫您什麼？\n");
     scanf("%s", username);
 
-    struct music *head = read_music_collection("Chinese Songs.txt");
+    struct music *head = read_music_collection("Chinese Songs.txt"); // 預設
     int choice = 0;
     do
     {
@@ -71,7 +71,7 @@ int main()
                 {
                     struct music *head; // 原始連結串列的頭部指針
                     int mode = 1;       // 模式設置為1，表示以音樂長度進行排序
-                    
+
                     printf("有兩種排序方式\n"
                            "請您選擇其中一種\n");
                     printf("1. 按照歌曲長度\n");
@@ -87,23 +87,23 @@ int main()
                     int new_date[3];
                     int year, month, day;
                     int nums;
-                    int new_length;
+                    float new_length;
                     wchar_t new_link[100];
                     printf("請輸入歌名：");
                     scanf("%ls", new_title);
                     printf("請輸入歌手名：");
                     scanf("%ls", new_artist);
                     printf("請輸入歌曲長度（min)：");
-                    scanf("%d", &new_length);
-                    printf("請輸入發布日期：");
+                    scanf("%f", &new_length);
+                    printf("請輸入發布日期：\n");
                     printf("年: ");
                     scanf(" %d", &year);
                     printf("月: ");
                     scanf(" %d", &month);
                     printf("日: ");
                     scanf(" %d", &day);
-                    printf("請輸入Youtube連結");
-                    printf("%ls", new_link);
+                    printf("請輸入Youtube連結:");
+                    scanf("%ls", new_link);
                     new_date[0] = year;
                     new_date[1] = month;
                     new_date[2] = day;
