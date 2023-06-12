@@ -34,7 +34,8 @@ int main()
                 printf("2. display playlist\n");
                 printf("3. add songs\n");
                 printf("4. delete songs\n");
-                printf("5. exit\n");
+                printf("5. search\n");
+                printf("6. exit\n");
 
                 // printf()  provide options
                 scanf(" %d", &option);
@@ -63,11 +64,17 @@ int main()
                 }
                 if (option == 2)
                 {
+                    struct music *head; // 原始連結串列的頭部指針
+                    int mode = 1;       // 模式設置為1，表示以音樂長度進行排序
 
-                    for (struct music *p = head; p != NULL; p = p->next)
-                    {
-                        printf("%s\n", p->name);
-                    }
+                    quickSort(mode, &head);
+                    printf("There are two sorting methods\n"
+                           "please choose one\n");
+                    printf("1.music length\n");
+                    printf("2.artist name\n");
+                    scanf(" %d", &mode);
+                    quickSort(mode, &head);
+                    void print_linkedList(struct music * head);
                 }
                 if (option == 3)
                 {
@@ -99,6 +106,29 @@ int main()
                     void linkedList_delete(struct music * *head, wchar_t * title, wchar_t * artist);
                 }
                 if (option == 5)
+                {
+                    wchar_t target_artist[100];
+                    wchar_t target_title[100];
+                    struct music *head;
+                    int mode;
+                    printf("what do you want to search\n");
+                    printf("1.artist\n");
+                    printf("2.title\n");
+                    scanf(" %d", mode);
+                    if (mode == 1)
+                    {
+                        printf("Please enter the artist name:");
+                        scanf("%s", &target_artist);
+                        struct music *search_artist(struct music * head, wchar_t * target_artist);
+                    }
+                    else if (mode == 2)
+                    {
+                        printf("Please enter the title:");
+                        scanf("%s", &target_title);
+                        struct music *search_title(struct music * head, wchar_t * target_title);
+                    }
+                }
+                if (option == 6)
                 {
                     break;
                 }
