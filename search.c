@@ -1,7 +1,18 @@
-#include "music.h"
-#include "search.h"
+#include <stdio.h>
+#include <stdlib.h>
+// #include "music.h"
+// #include "search.h"
+struct music
+{
+    wchar_t *title;
+    wchar_t *artist;
+    int date[3];   // 年、月、日
+    float length;  // minutes
+    wchar_t *link; // YouTube link
+    struct music *next;
+};
 
-struct music *search_artist(struct music *head, const char *target_artist)
+struct music *search_artist(struct music *head, wchar_t *target_artist)
 {
     struct music *current = head;
     // create the new linked list to store this artist song
@@ -25,7 +36,7 @@ struct music *search_artist(struct music *head, const char *target_artist)
     }
     return new_list;
 }
-struct music *search_title(struct music *head, const char *target_title)
+struct music *search_title(struct music *head,  wchar_t *target_title)
 {
     struct music *current = head;
     while (current != NULL)
@@ -43,7 +54,7 @@ struct music *search_title(struct music *head, const char *target_title)
     return NULL;
 }
 
-/* 
+/*
 // binary search
 
 int count(struct music *head)
@@ -66,7 +77,8 @@ void printList(struct music *head)
     }
     printf("\n");
 }
-//這個部分再看看其他組員寫的function在稍微做修改
+*/
+// 這個部分再看看其他組員寫的function在稍微做修改
 int binary_search(struct music *head, float target, float arr[], int nums)
 {
     int left, right;
@@ -78,7 +90,7 @@ int binary_search(struct music *head, float target, float arr[], int nums)
     {
         if (arr[mid] == target)
         {
-           return mid;
+            return mid;
         }
         else if (arr[mid] < target)
         {
@@ -90,9 +102,7 @@ int binary_search(struct music *head, float target, float arr[], int nums)
         }
     }
 }
- */
 
-/* 
 int main()
 {
     struct music *node1 = malloc(sizeof(struct music));
@@ -131,4 +141,3 @@ int main()
     getchar();
     return 0;
 }
- */
