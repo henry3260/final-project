@@ -8,7 +8,7 @@ struct music *read_music_collection(const char *filename)
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
-        printf("Error opening file.\n");
+        printf("Error opening file.\n"); 
         return NULL;
     }
     else
