@@ -55,7 +55,7 @@ int main()
 
                     if (head == NULL)
                     {
-                        printf("Error reading music collection.\n");
+                        printf("檔案讀取失敗\n");
                         return 1;
                     }
 
@@ -76,7 +76,7 @@ int main()
                            "請您選擇其中一種\n");
                     printf("1. 按照歌曲長度\n");
                     printf("2. 按照歌手名稱\n");
-                    scanf(" %d", &mode);
+                    scanf("%d", &mode);
                     quickSort(mode, &head);
                     print_linkedList(head);
                 }
@@ -149,7 +149,7 @@ int main()
                 if (option == 8)
                 {
                     char title[100];
-                    printf("您的檔案名稱要叫什麼？(請用英文)");
+                    printf("您的檔案名稱要叫什麼？(請用英文)\n");
                     scanf("%s", title);
                     write_music_collection(title, head);
                 }
