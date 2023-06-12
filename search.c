@@ -58,7 +58,6 @@ struct music *search_title(struct music *head, wchar_t *target_title)
         if (my_strcmp(current->title, target_title) == 0)
         {
             printf("歌手:%ls\n", current->artist);
-            printf("node address: %p\n", current);
             printf("發行日期:%d-%d-%d\n", current->date[0], current->date[1], current->date[2]);
             printf("歌曲長度: %f分\n", current->length);
             return current;
