@@ -13,7 +13,7 @@ struct music *read_music_collection(const char *filename)
     }
     else
     {
-        printf("File opened successfully.\n\n");
+        // printf("File opened successfully.\n\n");
     }
 
     struct music *head = NULL;
