@@ -11,16 +11,16 @@
 int main()
 {
     char username[1000];
-    printf("What is your name?\n");
+    printf("我可以叫您什麼？\n");
     scanf("%s", username);
 
     int choice = 0;
     do
     {
-        printf("Hi %s! Choose an option:\n", username);
-        printf("1. See Playlist\n");
-        printf("2. Play Game\n");
-        printf("3. Exit\n");
+        printf("Hi %s! 請選擇:\n", username);
+        printf("1. 查看音樂播放清單\n");
+        printf("2. 玩遊戲\n");
+        printf("3. 離開\n");
         scanf("%d", &choice);
 
         if (choice == 1)
@@ -28,31 +28,31 @@ int main()
             while (1)
             {
                 int option = 0;
-                // options: import muisc collection, download playlist (information of the songs), display playlist, add songs, delete songs, .....
-                printf("What do you want to do?\n");
-                printf("1. import muisc collection\n");
-                printf("2. display playlist\n");
-                printf("3. add songs\n");
-                printf("4. delete songs\n");
-                printf("5. search\n");
-                printf("6. shuffle playlist\n");
-                printf("7. exit\n");
 
-                // printf()  provide options
+                printf("您想做什麼事\n");
+                printf("1. 匯入音樂庫\n");
+                printf("2. 查看音樂清單\n");
+                printf("3. 排序\n");
+                printf("3. 新增歌曲\n");
+                printf("4. 刪除歌曲\n");
+                printf("5. 搜尋特定歌曲\n");
+                printf("6. 音樂清單隨機排序\n");
+                printf("7. 下載音樂庫（以供下次使用）\n");
+                printf("8. 離開\n");
                 scanf(" %d", &option);
 
-                // struct Queue *q = createQueue();
-
-                // int new_date[3] = {2009, 10, 4};
-                // enQueue(q, "歌名1", "歌手1", new_date, 4.3);
-                // enQueue(q, "歌名2", "歌手2", new_date, 4.3);
-                // deQueue(q);
-                // enQueue(q, "歌名3", "歌手3", new_date, 4.3);
-
+                struct music *head;
                 // printQueue(q);
                 if (option == 1) // import muisc collection
                 {
-                    struct music *head = read_music_collection("Chinese Songs.txt");
+                    char title[100];
+                    printf("您的檔案名稱叫什麼？(請用英文，並包含.txt)\n");
+                    char discard;
+                    scanf("%c", &discard);
+                    fgets(title, sizeof(title), stdin);
+                    title[strcspn(title, "\n")] = '\0';  // Remove the newline character
+                    head = read_music_collection(title);
+
                     if (head == NULL)
                     {
                         printf("Error reading music collection.\n");
@@ -65,19 +65,23 @@ int main()
                 }
                 if (option == 2)
                 {
+                    print_linkedList(head);
+                }
+                if (option == 3)
+                {
                     struct music *head; // 原始連結串列的頭部指針
                     int mode = 1;       // 模式設置為1，表示以音樂長度進行排序
 
                     quickSort(mode, &head);
-                    printf("There are two sorting methods\n"
-                           "please choose one\n");
-                    printf("1.music length\n");
-                    printf("2.artist name\n");
+                    printf("有兩種排序方式\n"
+                           "請您選擇其中一種\n");
+                    printf("1. 按照歌曲長度\n");
+                    printf("2. 按照歌手名稱\n");
                     scanf(" %d", &mode);
                     quickSort(mode, &head);
                     print_linkedList(head);
                 }
-                if (option == 3)
+                if (option == 4)
                 {
                     wchar_t new_title[100];
                     wchar_t new_artist[100];
@@ -86,66 +90,71 @@ int main()
                     int nums;
                     int new_length;
                     wchar_t new_link[100];
-                    printf("Please enter a music title: ");
+                    printf("請輸入歌名：");
                     scanf("%ls", new_title);
-                    printf("Please enter a artist: ");
+                    printf("請輸入歌手名：");
                     scanf("%ls", new_artist);
-                    printf("Please enter a music length: ");
+                    printf("請輸入歌曲長度（min)：");
                     scanf("%d", &new_length);
-                    printf("Please enter a date: ");
-                    printf("Year: ");
+                    printf("請輸入發布日期：");
+                    printf("年: ");
                     scanf(" %d", &year);
-                    printf("Month: ");
+                    printf("月: ");
                     scanf(" %d", &month);
-                    printf("Day: ");
+                    printf("日: ");
                     scanf(" %d", &day);
-                    printf("Please enter a youtube link: ");
+                    printf("請輸入Youtube連結");
                     printf("%ls", new_link);
                     new_date[0] = year;
                     new_date[1] = month;
                     new_date[2] = day;
-                    linkedList_append(&head, new_title, new_artist, new_date[3], new_length, new_link);
+                    linkedList_append(&head, new_title, new_artist, new_date, new_length, new_link);
                 }
-                if (option == 4)
+                if (option == 5)
                 {
                     wchar_t title[100];
                     wchar_t artist[100];
-                    printf("which song do you want to delete: ");
+                    printf("您想刪除哪首歌？");
                     scanf("%ls", title);
-                    printf("artist: ");
+                    printf("是誰的歌？");
                     scanf("%ls", artist);
-                    void linkedList_delete(&head, title, artist);
+                    linkedList_delete(&head, title, artist);
                 }
-                if (option == 5)
+                if (option == 6)
                 {
                     wchar_t target_artist[100];
                     wchar_t target_title[100];
                     struct music *head;
                     int mode;
-                    printf("what do you want to search\n");
-                    printf("1.artist\n");
-                    printf("2.title\n");
+                    printf("您想用什麼方式搜尋\n");
+                    printf("1.歌手\n");
+                    printf("2.歌名\n");
                     scanf(" %d", &mode);
                     if (mode == 1)
                     {
-                        struct music *temp;
-                        printf("Please enter the artist name:");
+                        printf("請輸入歌手名：");
                         scanf("%ls", target_artist);
-                        temp = search_artist(head, target_artist);
+                        search_artist(head, target_artist);
                     }
                     else if (mode == 2)
                     {
-                        struct music *temp;
-                        printf("Please enter the title:");
-                        scanf("%ls", &target_title);
-                        temp = search_title(head, target_title);
+                        printf("請輸入歌名：");
+                        scanf("%ls", target_title);
+                        search_title(head, target_title);
                     }
                 }
-                if (option == 6)
+                if (option == 7)
                 {
                     shufflePlaylist(&head);
                 }
-                if (option == 7)
+                if (option == 8)
+                {
+                    char title[100];
+                    printf("您的檔案名稱要叫什麼？(請用英文)");
+                    scanf("%s", title);
+                    write_music_collection(title, head);
+                }
+                if (option == 9)
                 {
                     break;
                 }
@@ -154,8 +163,8 @@ int main()
         }
         else if (choice == 2)
         {
-            ///////
-            printf("Playing game...");
+
+            printf("玩遊戲中...\n");
             char coronaPath[] = "/Applications/Corona-3690/Corona\\ Simulator.app";
             char mainLuaPath[] = "~/Documents/CCU/111-2/ProgramDesignII/Final/test2/musicGame/main.lua";
 
@@ -163,18 +172,17 @@ int main()
             snprintf(command, sizeof(command), "open %s --args %s", coronaPath, mainLuaPath);
 
             system(command);
-            ///////
 
             // go back to playlist
         }
         else if (choice == 3)
         {
-            printf("See you next time!\n");
+            printf("下次見!\n");
             return 0;
         }
         else
         {
-            printf("Invalid choice!\n");
+            printf("輸入錯誤，請重新選擇\n");
         }
     } while (choice != 3);
 
