@@ -1,16 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include "music.h"
-// #include "search.h"
-struct music
-{
-    wchar_t *title;
-    wchar_t *artist;
-    int date[3];   // 年、月、日
-    float length;  // minutes
-    wchar_t *link; // YouTube link
-    struct music *next;
-};
+#include "music.h"
+#include "search.h"
+
+int my_strcmp(const wchar_t* str1, const wchar_t* str2) {
+    int i = 0;
+    while (str1[i] != L'\0' && str2[i] != L'\0') {
+        if (str1[i] != str2[i]) {
+            return str1[i] - str2[i];
+        }
+        i++;
+    }
+
+    // Check if both strings have reached the end
+    if (str1[i] == L'\0' && str2[i] == L'\0') {
+        return 0;  // Strings are equal
+    }
+
+    // One string is shorter than the other
+    return str1[i] - str2[i];
+}
 
 struct music *search_artist(struct music *head, wchar_t *target_artist)
 {
@@ -19,10 +28,10 @@ struct music *search_artist(struct music *head, wchar_t *target_artist)
     struct music *new_list = malloc(sizeof(struct music));
     new_list->next = NULL;
 
-    printf("%s:\n", target_artist);
+    printf("%ls:\n", target_artist);
     while (current != NULL)
     {
-        if (strcmp(current->artist, target_artist) == 0)
+        if (my_strcmp(current->artist, target_artist) == 0)
         {
 
             struct music *new_song = malloc(sizeof(struct music));
@@ -30,33 +39,32 @@ struct music *search_artist(struct music *head, wchar_t *target_artist)
             new_song->artist = current->artist;
             new_song->next = new_list->next;
             new_list->next = new_song;
-            printf("%s\n", current->title);
+            printf("%ls\n", current->title);
         }
         current = current->next;
     }
     return new_list;
 }
+
 struct music *search_title(struct music *head,  wchar_t *target_title)
 {
     struct music *current = head;
     while (current != NULL)
     {
-        if (strcmp(current->title, target_title) == 0)
+        if (my_strcmp(current->title, target_title) == 0)
         {
-            printf("title: %s\n", current->title);
+            printf("title: %ls\n", current->title);
             printf("node address: %p\n", current);
 
             return current;
         }
         current = current->next;
     }
-    printf("no title found : %s\n", target_title);
+    printf("no title found : %ls\n", target_title);
     return NULL;
 }
 
 /*
-// binary search
-
 int count(struct music *head)
 {
     int count = 0;
@@ -78,7 +86,8 @@ void printList(struct music *head)
     printf("\n");
 }
 */
-// 這個部分再看看其他組員寫的function在稍微做修改
+
+// binary search
 int binary_search(struct music *head, float target, float arr[], int nums)
 {
     int left, right;
@@ -103,6 +112,7 @@ int binary_search(struct music *head, float target, float arr[], int nums)
     }
 }
 
+/* 
 int main()
 {
     struct music *node1 = malloc(sizeof(struct music));
@@ -141,3 +151,4 @@ int main()
     getchar();
     return 0;
 }
+ */

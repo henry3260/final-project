@@ -24,7 +24,7 @@ struct music *newNode(wchar_t *new_title, wchar_t *new_artist, int new_date[3], 
     return new_music;
 }
 
-struct Queue *createQueue()
+struct Queue *createQueue() 
 {
     struct Queue *q = (struct Queue *)malloc(sizeof(struct Queue));
     q->front = q->rear = NULL;
