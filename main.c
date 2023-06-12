@@ -14,6 +14,7 @@ int main()
     printf("我可以叫您什麼？\n");
     scanf("%s", username);
 
+    struct music *head = read_music_collection("Chinese Songs.txt");
     int choice = 0;
     do
     {
@@ -33,16 +34,15 @@ int main()
                 printf("1. 匯入音樂庫\n");
                 printf("2. 查看音樂清單\n");
                 printf("3. 排序\n");
-                printf("3. 新增歌曲\n");
-                printf("4. 刪除歌曲\n");
-                printf("5. 搜尋特定歌曲\n");
-                printf("6. 音樂清單隨機排序\n");
-                printf("7. 下載音樂庫（以供下次使用）\n");
-                printf("8. 離開\n");
+                printf("4. 新增歌曲\n");
+                printf("5. 刪除歌曲\n");
+                printf("6. 搜尋特定歌曲\n");
+                printf("7. 音樂清單隨機排序\n");
+                printf("8. 下載音樂庫（以供下次使用）\n");
+                printf("9. 離開\n");
                 scanf(" %d", &option);
 
-                struct music *head;
-                // printQueue(q);
+                // struct music *head;
                 if (option == 1) // import muisc collection
                 {
                     char title[100];
@@ -166,7 +166,7 @@ int main()
 
             printf("玩遊戲中...\n");
             char coronaPath[] = "/Applications/Corona-3690/Corona\\ Simulator.app";
-            char mainLuaPath[] = "~/Documents/CCU/111-2/ProgramDesignII/Final/test2/musicGame/main.lua";
+            char mainLuaPath[] = "~/Documents/CCU/111-2/ProgramDesignII/Final/final-project/musicGame/main.lua"; // Change the path to where your musicGame located
 
             char command[256];
             snprintf(command, sizeof(command), "open %s --args %s", coronaPath, mainLuaPath);
