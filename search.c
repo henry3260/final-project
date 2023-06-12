@@ -37,7 +37,6 @@ struct music *search_artist(struct music *head, wchar_t *target_artist)
     {
         if (my_strcmp(current->artist, target_artist) == 0)
         {
-
             struct music *new_song = malloc(sizeof(struct music));
             new_song->title = current->title;
             new_song->artist = current->artist;
