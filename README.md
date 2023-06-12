@@ -6,15 +6,17 @@
 + ./music_collection
 ----
 
-#### First sence
 you will see the main operation menu below.
-What do you want to do?
-1. import muisc collection
-2. display playlist
-3. add songs
-4. delete songs
-5. search
-6. exit
+您想做什麼事?
+1. 匯入音樂庫
+2. 查看音樂清單
+3. 排序
+4. 新增歌曲
+5. 刪除歌曲
+6. 搜尋特定歌曲
+7. 音樂清單隨機排序
+8. 下載音樂庫（以供下次使用）
+9. 離開
 
 ##  Operation Description
 ----
