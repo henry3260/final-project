@@ -51,3 +51,24 @@ When running the program, you will be presented with several options to interact
 8. Download the Music Collection: Download your music collection for future use.
 9. Exit: Terminate the program.
 
+## Main Operation of the Music Game
+
+Apart from managing your music collection, you can also enjoy a musical game. To play the game, follow these steps:
+
+1. Make sure you have Lua and the Corona SDK installed on your system.
+2. When prompted to play the game, select the option in the program.
+3. The game will start in the Corona Simulator application, where you can select a song and choose a level to enjoy the game.
+
+## Additional Notes
+
+- The main program is written in C and interacts with Lua to launch the musical game.
+- Make sure you have Lua and the Corona SDK installed and properly set up before running the game.
+- Lua is used as a scripting language to control the game logic and interactions.
+- The Corona SDK provides the necessary tools and libraries for creating the graphical elements and running the game on different platforms.
+- Consult the documentation and resources provided by Lua and the Corona SDK for more information on using and developing games with these tools.
+
+Feel free to explore and enjoy both the music collection and the musical game!
+
+---
+
+Note: Please ensure that you have the necessary dependencies installed as mentioned in the Environment Setup section of the README file to run the program successfully.
