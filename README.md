@@ -1,58 +1,53 @@
 # Music Collection
-## Instruction
-#### Clone the Repository!
-   ```
-   git clone [https://github.com/henry3260/final-project.git]
-   ```
 
-#### Navigate to the project directory
-   ```
-   make
-   ./music_collection
-   ```
+Welcome to the Music Collection project! This project allows you to manage your music collection and play an interactive musical game. This README provides instructions on how to set up and use the project.
 
-----
+## Instructions
 
-## Main Operations of the playlist
+### Clone the Repository
 
-您想做什麼事?
-1. 匯入音樂庫
-2. 查看音樂清單
-3. 排序
-4. 新增歌曲
-5. 刪除歌曲
-6. 搜尋特定歌曲
-7. 音樂清單隨機排序
-8. 下載音樂庫（以供下次使用）
-9. 離開
+To get started, clone the repository by executing the following command in your terminal:
 
-##  Operations Description
-----
-+ Import a Music Collection
-	+ You can input your music collection 
-	+ After you input the file, you are able to use the following functions
-+ Display the Playlist
-	+ Display your current playlist
-+ Sort the Playlist
-	+ Sorting your album by either length or artist&apos;s name
-+ Add Songs
-	+ Add a new song to the playlist after input the imformation of the new song&apos;s name
-+ Delete Songs
-	+ Delete a song from the playlist
-+ Search for a Song
-	+ Input the key word of the song&apos;s name or the artist&apos;s name
-+ Shuffle the Playlist
-	+ Randomly shuffle the playlist
-+ Download the Music Collection
-	+ Download the music collection (for future use)
-+ Exit
-	+ To terminate the program.
-----
+```
+git clone https://github.com/henry3260/final-project.git
+```
 
-## Main Operation of the Music Game
-+ Play the Game
-	+ Select a song
-	+ Select a level
-	+ Enjoy!
-+ See the Acheivement
-+ Exit
+### Navigate to the Project Directory
+
+After cloning the repository, navigate to the project directory using the terminal. Use the following command:
+
+```
+cd final-project
+```
+
+### Install Dependencies
+
+Before running the musical game, make sure you have the necessary dependencies installed. The game requires Lua and the Corona SDK. Please follow the installation instructions for your specific operating system:
+
+1. **Lua**: Visit the Lua website (https://www.lua.org/) and download the appropriate version of Lua for your system. Follow the installation instructions provided.
+
+2. **Corona SDK**: Visit the Corona SDK website (https://coronalabs.com/) and download the Corona SDK package for your operating system. Install the package by following the provided instructions.
+
+### Execute the Program
+
+Once you are in the project directory and have installed the required dependencies, you can execute the program by running the following command:
+
+```
+make
+./music_collection
+```
+
+## Main Operations of the Playlist
+
+When running the program, you will be presented with several options to interact with the playlist. Here are the main operations you can perform:
+
+1. Import a Music Collection: Import your music collection by providing the necessary file. After importing, you can access other functions.
+2. Display the Playlist: View the current songs in your playlist.
+3. Sort the Playlist: Sort your playlist by either song length or artist's name.
+4. Add Songs: Add a new song to your playlist by providing the required information.
+5. Delete Songs: Remove a song from your playlist.
+6. Search for a Song: Search for a specific song by providing the keyword of the song's name or the artist's name.
+7. Shuffle the Playlist: Randomly shuffle the songs in your playlist.
+8. Download the Music Collection: Download your music collection for future use.
+9. Exit: Terminate the program.
+
