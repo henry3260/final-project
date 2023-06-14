@@ -1,12 +1,20 @@
-
-# Music Collection And Musical Game
+# Music Collection
 ## Instruction
-#### You must enter the following command in terminal
-+ make
-+ ./music_collection
+#### Clone the Repository!
+   ```
+   git clone [https://github.com/henry3260/final-project.git]
+   ```
+
+#### Navigate to the project directory
+   ```
+   make
+   ./music_collection
+   ```
+
 ----
 
-you will see the main operation menu below.
+## Main Operations of the playlist
+
 您想做什麼事?
 1. 匯入音樂庫
 2. 查看音樂清單
@@ -18,20 +26,33 @@ you will see the main operation menu below.
 8. 下載音樂庫（以供下次使用）
 9. 離開
 
-##  Operation Description
+##  Operations Description
 ----
-+ import music collection
++ Import a Music Collection
 	+ You can input your music collection 
-	+ After you input the file,you are able to use the following function
-+ display playlist
+	+ After you input the file, you are able to use the following functions
++ Display the Playlist
+	+ Display your current playlist
++ Sort the Playlist
 	+ Sorting your album by either length or artist&apos;s name
-+ add songs
-	+ Add a new song to the linked list after input the imformation of the new song&apos;s name
-+ delete songs
-	+ Delete a song from the linked list 
-+ search
++ Add Songs
+	+ Add a new song to the playlist after input the imformation of the new song&apos;s name
++ Delete Songs
+	+ Delete a song from the playlist
++ Search for a Song
 	+ Input the key word of the song&apos;s name or the artist&apos;s name
-+ exit
++ Shuffle the Playlist
+	+ Randomly shuffle the playlist
++ Download the Music Collection
+	+ Download the music collection (for future use)
++ Exit
 	+ To terminate the program.
 ----
 
+## Main Operation of the Music Game
++ Play the Game
+	+ Select a song
+	+ Select a level
+	+ Enjoy!
++ See the Acheivement
++ Exit
